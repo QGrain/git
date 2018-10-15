@@ -432,6 +432,10 @@ int cmd_repack(int argc, const char **argv, const char *prefix)
 
 			if (!midx_cleared) {
 				/* if we move a packfile, it will invalidated the midx */
+				if (the_repository->objects) {
+					close_midx(the_repository->objects->multi_pack_index);
+					the_repository->objects->multi_pack_index = NULL;
+				}
 				clear_midx_file(get_object_directory());
 				midx_cleared = 1;
 			}
@@ -555,6 +559,10 @@ int cmd_repack(int argc, const char **argv, const char *prefix)
 	if (!no_update_server_info)
 		update_server_info(0);
 	remove_temporary_files();
+
+	if (git_env_bool(GIT_TEST_MULTI_PACK_INDEX, 0))
+		write_midx_file(get_object_directory());
+
 	string_list_clear(&names, 0);
 	string_list_clear(&rollback, 0);
 	string_list_clear(&existing_packs, 0);

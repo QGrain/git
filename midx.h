@@ -6,6 +6,8 @@
 struct object_id;
 struct pack_entry;
 
+#define GIT_TEST_MULTI_PACK_INDEX "GIT_TEST_MULTI_PACK_INDEX"
+
 struct multi_pack_index {
 	struct multi_pack_index *next;
 
@@ -47,5 +49,7 @@ int prepare_multi_pack_index_one(struct repository *r, const char *object_dir, i
 int write_midx_file(const char *object_dir);
 void clear_midx_file(const char *object_dir);
 int verify_midx_file(const char *object_dir);
+
+void close_midx(struct multi_pack_index *m);
 
 #endif
