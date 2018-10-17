@@ -814,6 +814,10 @@ fail_pipe:
 		 */
 		execve(argv.argv[1], (char *const *) argv.argv + 1,
 		       (char *const *) childenv);
+		
+		fprintf(stderr, "(from run-command) argv[0] = %s, argv[1] = %s\n", argv.argv[0], argv.argv[1]);
+		fprintf(stderr, "childenv[0] = %s\n", childenv[0]);
+
 		if (errno == ENOEXEC)
 			execve(argv.argv[0], (char *const *) argv.argv,
 			       (char *const *) childenv);
