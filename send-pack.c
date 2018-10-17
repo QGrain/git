@@ -372,6 +372,9 @@ int send_pack(struct send_pack_args *args,
 	      struct ref *remote_refs,
 	      struct oid_array *extra_have)
 {
+	fprintf(stderr, "(from head of send-pack) url = %s\n", args->url);
+	fprintf(stderr, "argv[0] = %s, argv[1] = %s\n", conn->argv[0], conn->argv[1]);
+
 	int in = fd[0];
 	int out = fd[1];
 	struct strbuf req_buf = STRBUF_INIT;
@@ -605,6 +608,9 @@ int send_pack(struct send_pack_args *args,
 		}
 	}
 
+	fprintf(stderr, "(from tail of send-pack) url = %s\n", args->url);
+	fprintf(stderr, "argv[0] = %s, argv[1] = %s\n", conn->argv[0], conn->argv[1]);
+
 	if (ret < 0)
 		return ret;
 
@@ -621,5 +627,7 @@ int send_pack(struct send_pack_args *args,
 			return -1;
 		}
 	}
+
+
 	return 0;
 }
