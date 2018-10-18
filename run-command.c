@@ -815,9 +815,6 @@ fail_pipe:
 		execve(argv.argv[1], (char *const *) argv.argv + 1,
 		       (char *const *) childenv);
 		
-		fprintf(stderr, "(from run-command) argv[0] = %s, argv[1] = %s\n", argv.argv[0], argv.argv[1]);
-		fprintf(stderr, "childenv[0] = %s\n", childenv[0]);
-
 		if (errno == ENOEXEC)
 			execve(argv.argv[0], (char *const *) argv.argv,
 			       (char *const *) childenv);
@@ -965,6 +962,15 @@ int finish_command_in_signal(struct child_process *cmd)
 
 int run_command(struct child_process *cmd)
 {
+	int i =0;
+	while (cmd->argv[i] != NULL) {
+		fprintf(stderr, "cmd->argv[%d] = %s\n", i++, cmd->argv[i]);
+	}
+	i = 0;
+	while (cmd->env[i] != NULL) {
+		fprintf(stderr, "cmd->env[%d] = %s\n", i++, cmd->env[i]);
+	}
+
 	int code;
 
 	if (cmd->out < 0 || cmd->err < 0)
