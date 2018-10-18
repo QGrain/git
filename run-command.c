@@ -970,6 +970,7 @@ int run_command(struct child_process *cmd)
 	while (cmd->env[i] != NULL) {
 		fprintf(stderr, "cmd->env[%d] = %s\n", i++, cmd->env[i]);
 	}
+	
 
 	int code;
 
