@@ -373,7 +373,14 @@ int send_pack(struct send_pack_args *args,
 	      struct oid_array *extra_have)
 {
 	fprintf(stderr, "(from head of send-pack) url = %s\n", args->url);
-	fprintf(stderr, "argv[0] = %s, argv[1] = %s\n", conn->argv[0], conn->argv[1]);
+	int i = 0;
+	while (conn->argv[i] != NULL) {
+		fprintf(stderr, "conn->argv[%d] = %s\n", i++, conn->argv[i]);
+	}
+	i = 0;
+	while (conn->env[i] != NULL) {
+		fprintf(stderr, "conn->env[%d] = %s\n", i++, conn->env[i]);
+	}
 
 	int in = fd[0];
 	int out = fd[1];
@@ -608,8 +615,10 @@ int send_pack(struct send_pack_args *args,
 		}
 	}
 
-	fprintf(stderr, "(from tail of send-pack) url = %s\n", args->url);
-	fprintf(stderr, "argv[0] = %s, argv[1] = %s\n", conn->argv[0], conn->argv[1]);
+	fprintf(stderr, "\n\n(from tail of send-pack) url = %s\n", args->url);
+	while (conn->argv[i] != NULL) {
+		fprintf(stderr, "conn->argv[%d] = %s\n", i++, conn->argv[i]);
+	}
 
 	if (ret < 0)
 		return ret;
