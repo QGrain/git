@@ -615,10 +615,6 @@ int send_pack(struct send_pack_args *args,
 		}
 	}
 
-	fprintf(stderr, "\n\n(from tail of send-pack) url = %s\n", args->url);
-	while (conn->argv[i] != NULL) {
-		fprintf(stderr, "conn->argv[%d] = %s\n", i++, conn->argv[i]);
-	}
 
 	if (ret < 0)
 		return ret;
