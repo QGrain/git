@@ -962,16 +962,6 @@ int finish_command_in_signal(struct child_process *cmd)
 
 int run_command(struct child_process *cmd)
 {
-	int i =0;
-	while (cmd->argv[i] != NULL) {
-		fprintf(stderr, "cmd->argv[%d] = %s\n", i++, cmd->argv[i]);
-	}
-	i = 0;
-	while (cmd->env[i] != NULL) {
-		fprintf(stderr, "cmd->env[%d] = %s\n", i++, cmd->env[i]);
-	}
-	
-
 	int code;
 
 	if (cmd->out < 0 || cmd->err < 0)
