@@ -372,25 +372,25 @@ int send_pack(struct send_pack_args *args,
 	      struct ref *remote_refs,
 	      struct oid_array *extra_have)
 {
-	fprintf(stderr, "(  The print is called at the head of send-pack()  )\nurl = %s\n\n", args->url);
+	fprintf(stderr, "(  The print is called at the head of send-pack()  )\nurl = %s\n", args->url);
+	fprintf(stderr, "after url and before dir\n");
 	fprintf(stderr, "dir = %s\n\n", conn->dir);
+	fprintf(stderr, "after dir\n");
 
 	int i = 0;
 	while (conn->argv[i] != NULL) {
-		fprintf(stderr, "conn->argv[%d] = %s\n", i, conn->argv[i]);
-		++i;
+		fprintf(stderr, "conn->argv[%d] = %s\n", i++, conn->argv[i]);
 	}
-
+	fprintf(stderr, "after conn->argv\n");
 	i = 0;
 	while (conn->env[i] != NULL) {
-		fprintf(stderr, "conn->env[%d] = %s\n", i, conn->env[i]);
-		++i;
+		fprintf(stderr, "conn->env[%d] = %s\n", i++, conn->env[i]);
 	}
 
 	fprintf(stderr, "\none thing strange is that 'conn->args.argv' seems the same as 'conn->argv':\n");
 	i = 0;
 	while (conn->args.argv[i] != NULL) {
-		fprintf(stderr, "conn->args.argv[%d] = %s\n", i, conn->args.argv[i++]);
+		fprintf(stderr, "conn->args.argv[%d] = %s\n", i++, conn->args.argv[i]);
 	}
 
 	fprintf(stderr, "\nLet's see the diff between 'conn->env_array.argv' and 'conn->env':\n");
