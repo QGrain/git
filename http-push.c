@@ -326,13 +326,19 @@ static void start_fetch_packed(struct transfer_request *request)
 	preq->lst = &repo->packs;
 
 	/* Make sure there isn't another open request for this pack */
+	int i = 1;
 	while (check_request) {
+
+		fprintf(stderr, "The %d check_request->url: %s\n\tand check_request->dest: %s\n", i++, check_request->url, check_request->dest);
+
+
 		if (check_request->state == RUN_FETCH_PACKED &&
 		    !strcmp(check_request->url, preq->url)) {
 			release_http_pack_request(preq);
 			release_request(request);
 			return;
 		}
+
 		check_request = check_request->next;
 	}
 
@@ -1708,6 +1714,14 @@ int cmd_main(int argc, const char **argv)
 	int new_refs;
 	struct ref *ref, *local_refs;
 
+	fprintf(stderr, "\nFrom head of http-push.c cmd_main():\n");
+	//fprintf(stderr, "the repo->url: %s, the repo->path: %s\n", repo->url, repo->path);
+
+	int Counter = 0;
+	while (argv[Counter] != NULL) {
+		fprintf(stderr, "argv[%d] is : %s\n", Counter++, argv[i]);
+	}
+
 	repo = xcalloc(1, sizeof(*repo));
 
 	argv++;
@@ -1971,6 +1985,10 @@ int cmd_main(int argc, const char **argv)
 	}
 
  cleanup:
+
+	fprintf(stderr, "\nFrom Exit part of http-push.c cmd_main():\n");
+	fprintf(stderr, "the repo->url: %s, the repo->path: %s\n", repo->url, repo->path);
+
 	if (info_ref_lock)
 		unlock_remote(info_ref_lock);
 	free(repo);
