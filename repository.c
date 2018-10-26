@@ -142,6 +142,9 @@ int repo_init(struct repository *repo,
 	      const char *gitdir,
 	      const char *worktree)
 {
+	fprintf(stderr, "\nFrom repo_init():\n");
+	fprintf(stderr, "gitdir is: %s\n", gitdir);
+
 	struct repository_format format;
 	memset(repo, 0, sizeof(*repo));
 
