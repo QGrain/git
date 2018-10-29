@@ -391,7 +391,7 @@ int send_pack(struct send_pack_args *args,
 	for (; counter < len; ++counter) {
  		fprintf(stderr, "fd[%d] = %d\n", counter, fd[counter]);
 	}
-	fprintf(stderr, "\nargs-url = %s\nargs->push_options->items->string = %s\n", args->url, args->push_options->items->string);
+	//fprintf(stderr, "\nargs-url = %s\nargs->push_options->items->string = %s\n", args->url, args->push_options->items->string);
 
 	/*
 	fprintf(stderr, "(  The print is called at the head of send-pack()  )\nurl = %s\n", args->url);
@@ -654,6 +654,8 @@ int send_pack(struct send_pack_args *args,
 			ret = -1;
 		}
 	}
+
+	fprintf(stderr, "\nargs-url = %s\nargs->push_options->items->string = %s\n", args->url, args->push_options->items->string);
 
 
 	if (ret < 0)
