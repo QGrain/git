@@ -388,7 +388,7 @@ int send_pack(struct send_pack_args *args,
 {
 	struct ref *test = remote_refs;
 	for (; test != NULL; test = test->next) {
-		fprintf(stderr, "remote_refs->name = %s\nremote_refs->remote_status = %s\n", test->name, test->remote_status);
+		fprintf(stderr, "remote_refs->name = %s\nremote_refs->remote_status = %s\n\n", test->name, test->remote_status);
 	} 
 	int len = sizeof(fd) / sizeof(fd[0]);
 	int counter = 0;
