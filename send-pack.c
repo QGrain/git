@@ -386,17 +386,13 @@ int send_pack(struct send_pack_args *args,
 	      struct ref *remote_refs,
 	      struct oid_array *extra_have)
 {
-	struct ref *testref = remote_refs;
-	for (; testref != NULL; testref = testref->next) {
-		fprintf(stderr, "From head of send-pack()\nremote_refs->name = %s\nremote_refs->remote_status = %s\n", testref->name, testref->remote_status);
-		fprintf(stderr, "remote_refs->symref = %s\n\n", testref->symref);
-	}
-
 	int len = sizeof(fd) / sizeof(fd[0]);
 	int counter = 0;
 	for (; counter < len; ++counter) {
  		fprintf(stderr, "fd[%d] = %d\n", counter, fd[counter]);
 	}
+	fprintf(stderr, "\nargs-url = %s\nargs->push_options->items->string = %s\n", args->url, args->push_options->items->string);
+
 	/*
 	fprintf(stderr, "(  The print is called at the head of send-pack()  )\nurl = %s\n", args->url);
 	fprintf(stderr, "after url and before dir\n");
