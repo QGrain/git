@@ -64,7 +64,7 @@ static int pack_objects(int fd, struct ref *refs, struct oid_array *extra, struc
 	int i;
 	int rc;
 
-	fprintf(stderr, "\nFrom pack_object()\nargs->url = %s\n", args->url);
+	fprintf(stderr, "\nFrom head of pack_object()\nargs->url = %s\n", args->url);
 
 	argv_array_push(&po.args, "pack-objects");
 	argv_array_push(&po.args, "--all-progress-implied");
@@ -120,6 +120,9 @@ static int pack_objects(int fd, struct ref *refs, struct oid_array *extra, struc
 		po.out = -1;
 	}
 
+		fprintf(stderr, "\nFrom middle of pack_object()\nargs->url = %s\n", args->url);
+
+
 	rc = finish_command(&po);
 	if (rc) {
 		/*
@@ -134,6 +137,10 @@ static int pack_objects(int fd, struct ref *refs, struct oid_array *extra, struc
 			error("pack-objects died of signal %d", rc - 128);
 		return -1;
 	}
+
+		fprintf(stderr, "\nFrom tail of pack_object()\nargs->url = %s\n", args->url);
+
+
 	return 0;
 }
 
@@ -284,7 +291,7 @@ static int generate_push_cert(struct strbuf *req_buf,
 	datestamp(&cert);
 	strbuf_addch(&cert, '\n');
 
-	fprintf(stderr, "\nFrom generate_push_cert()\nargs->url = %s\n", args->url);
+	fprintf(stderr, "\nFrom head of generate_push_cert()\nargs->url = %s\n", args->url);
 
 	if (args->url && *args->url) {
 		char *anon_url = transport_anonymize_url(args->url);
@@ -322,6 +329,8 @@ static int generate_push_cert(struct strbuf *req_buf,
 	packet_buf_write(req_buf, "push-cert-end\n");
 
 free_return:
+
+	fprintf(stderr, "\nFrom tail of generate_push_cert()\nargs->url = %s\n", args->url);
 	free(signing_key);
 	strbuf_release(&cert);
 	return update_seen;
@@ -377,6 +386,17 @@ int send_pack(struct send_pack_args *args,
 	      struct ref *remote_refs,
 	      struct oid_array *extra_have)
 {
+	struct ref *testref = remote_refs;
+	for (; testref != NULL; testref = testref->next) {
+		fprintf(stderr, "From head of send-pack()\nremote_refs->name = %s\nremote_refs->remote_status = %s\n", testref->name, testref->remote_status);
+		fprintf(stderr, "remote_refs->symref = %s\n\n", testref->symref);
+	}
+
+	int len = sizeof(fd) / sizeof(fd[0]);
+	int counter = 0;
+	for (; counter < len; ++counter) {
+ 		fprintf(stderr, "fd[%d] = %d\n", counter, fd[counter]);
+	}
 	/*
 	fprintf(stderr, "(  The print is called at the head of send-pack()  )\nurl = %s\n", args->url);
 	fprintf(stderr, "after url and before dir\n");
