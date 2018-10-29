@@ -64,6 +64,11 @@ static int pack_objects(int fd, struct ref *refs, struct oid_array *extra, struc
 	int i;
 	int rc;
 
+
+	struct ref *test = refs;
+	for (; test != NULL; test = test->next) {
+		fprintf(stderr, "refs->name = %s\nrefs->remote_status = %s\n\n", test->name, test->remote_status);
+	} 
 	fprintf(stderr, "\nFrom head of pack_object()\nargs->url = %s\n", args->url);
 
 	argv_array_push(&po.args, "pack-objects");
@@ -386,10 +391,7 @@ int send_pack(struct send_pack_args *args,
 	      struct ref *remote_refs,
 	      struct oid_array *extra_have)
 {
-	struct ref *test = remote_refs;
-	for (; test != NULL; test = test->next) {
-		fprintf(stderr, "remote_refs->name = %s\nremote_refs->remote_status = %s\n\n", test->name, test->remote_status);
-	} 
+	
 	int len = sizeof(fd) / sizeof(fd[0]);
 	int counter = 0;
 	for (; counter < len; ++counter) {
