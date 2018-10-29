@@ -655,7 +655,7 @@ int send_pack(struct send_pack_args *args,
 		}
 	}
 
-	fprintf(stderr, "\nargs-url = %s\nargs->push_options->items->string = %s\n", args->url, args->push_options->items->string);
+	//fprintf(stderr, "\nargs-url = %s\nargs->push_options->items->string = %s\n", args->url, args->push_options->items->string);
 
 
 	if (ret < 0)
