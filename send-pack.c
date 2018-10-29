@@ -64,6 +64,8 @@ static int pack_objects(int fd, struct ref *refs, struct oid_array *extra, struc
 	int i;
 	int rc;
 
+	fprintf(stderr, "\nFrom pack_object()\nargs->url = %s\n", args->url);
+
 	argv_array_push(&po.args, "pack-objects");
 	argv_array_push(&po.args, "--all-progress-implied");
 	argv_array_push(&po.args, "--revs");
@@ -281,6 +283,9 @@ static int generate_push_cert(struct strbuf *req_buf,
 	strbuf_addf(&cert, "pusher %s ", signing_key);
 	datestamp(&cert);
 	strbuf_addch(&cert, '\n');
+
+	fprintf(stderr, "\nFrom generate_push_cert()\nargs->url = %s\n", args->url);
+
 	if (args->url && *args->url) {
 		char *anon_url = transport_anonymize_url(args->url);
 		strbuf_addf(&cert, "pushee %s\n", anon_url);
@@ -372,7 +377,7 @@ int send_pack(struct send_pack_args *args,
 	      struct ref *remote_refs,
 	      struct oid_array *extra_have)
 {
-	
+	/*
 	fprintf(stderr, "(  The print is called at the head of send-pack()  )\nurl = %s\n", args->url);
 	fprintf(stderr, "after url and before dir\n");
 	//fprintf(stderr, "dir = %s\n\n", conn->dir);
@@ -398,7 +403,7 @@ int send_pack(struct send_pack_args *args,
 	i = 0;
 	while (conn->env_array.argv[i] != NULL) {
 		fprintf(stderr, "conn->env_array.argv[%d] = %s\n", i++, conn->env_array.argv[i]);
-	}
+	}*/
 	
 
 	int in = fd[0];
