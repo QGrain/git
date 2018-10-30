@@ -585,6 +585,33 @@ int send_pack(struct send_pack_args *args,
 		}
 	}
 
+	fprintf(stderr, "(The print is called at the middle of send-pack())\nurl = %s\n", args->url);
+	fprintf(stderr, "after url and before dir\n");
+	//fprintf(stderr, "dir = %s\n\n", conn->dir);
+	//fprintf(stderr, "after dir\n");
+
+	int i = 0;
+	while (conn->argv[i] != NULL) {
+		fprintf(stderr, "conn->argv[%d] = %s\n", i++, conn->argv[i]);
+	}
+	fprintf(stderr, "after conn->argv\n");
+	i = 0;
+	while (conn->env[i] != NULL) {
+		fprintf(stderr, "conn->env[%d] = %s\n", i++, conn->env[i]);
+	}
+
+	fprintf(stderr, "\none thing strange is that 'conn->args.argv' seems the same as 'conn->argv':\n");
+	i = 0;
+	while (conn->args.argv[i] != NULL) {
+		fprintf(stderr, "conn->args.argv[%d] = %s\n", i++, conn->args.argv[i]);
+	}
+
+	fprintf(stderr, "\nLet's see the diff between 'conn->env_array.argv' and 'conn->env':\n");
+	i = 0;
+	while (conn->env_array.argv[i] != NULL) {
+		fprintf(stderr, "conn->env_array.argv[%d] = %s\n", i++, conn->env_array.argv[i]);
+	}
+
 	if (use_push_options) {
 		struct string_list_item *item;
 
