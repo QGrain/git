@@ -661,10 +661,10 @@ int send_pack(struct send_pack_args *args,
 		}
 	}
 
-	fprintf(stderr, "(The print is called at the middle of send-pack())\nurl = %s\n", args->url);
+	fprintf(stderr, "(The print is called at the tail of send-pack())\nurl = %s\n", args->url);
 	fprintf(stderr, "after url and before dir\n");
-	//fprintf(stderr, "dir = %s\n\n", conn->dir);
-	//fprintf(stderr, "after dir\n");
+	fprintf(stderr, "dir = %s\n\n", conn->dir);
+	fprintf(stderr, "after dir\n");
 
 	int i = 0;
 	while (conn->argv[i] != NULL) {
