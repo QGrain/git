@@ -1,11 +1,11 @@
 My purpose
 ===================
 
-Modify git to realize the authority managemnet
+Modify git to realize the authority managemnet <br>
 **Project has been stopped since 2018.11**
 <br>
 The following is the initial **README** 
-</br>
+<br>
 
 Git - fast, scalable, distributed revision control system
 =========================================================
